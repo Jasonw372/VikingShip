@@ -1,82 +1,83 @@
-import React, {useContext} from "react";
-import classNames from "classnames";
-import {MenuContext} from "./menu.tsx";
-import {MenuItemProps} from "./menuItem.tsx";
-
+import React,{ FC, useContext, useState, FunctionComponentElement, ReactNode } from 'react'
+import classNames from 'classnames'
+import { MenuContext } from './menu'
+import { MenuItemProps } from './menuItem'
+import Icon from '../Icon/icon'
+import Transition from '../Transition/transition'
 export interface SubMenuProps {
   index?: string;
+  /**下拉菜单选项的文字 */
   title: string;
+  /**下拉菜单选型的扩展类名 */
   className?: string;
-  children: React.ReactNode;
+  children?: ReactNode;
 }
 
-
-const SubMenu: React.FC<SubMenuProps> = ({index, title, className, children}) => {
-  const context = useContext(MenuContext);
+export const SubMenu: FC<SubMenuProps> = ({ index, title, children, className}) => {
+  const context = useContext(MenuContext)
   const openedSubMenus = context.defaultOpenSubMenus as Array<string>
   const isOpened = (index && context.mode === 'vertical') ? openedSubMenus.includes(index) : false
-  const [menuOpen, setOpen] = React.useState(isOpened);
-
+  const [ menuOpen, setOpen ] = useState(isOpened)
   const classes = classNames('menu-item submenu-item', className, {
     'is-active': context.index === index,
-    'is-vertical': context.mode === 'vertical',
-  });
-  let timer: number;
+    'is-opened': menuOpen,
+    'is-vertical': context.mode === 'vertical'
+  })
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setOpen(!menuOpen)
+  }
+  let timer: any
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
-    clearTimeout(timer);
-    e.preventDefault();
+    clearTimeout(timer)
+    e.preventDefault()
     timer = setTimeout(() => {
       setOpen(toggle)
-    }, 300) as unknown as number;
+    }, 300)
   }
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setOpen(!menuOpen);
-  }
-  const clickEvent = context.mode === 'vertical' ? {
+  const clickEvents = context.mode === 'vertical' ? {
     onClick: handleClick
   } : {}
-
-  const hoverEvent = context.mode !== 'vertical' ? {
-    onMouseEnter: (e: React.MouseEvent) => {
-      handleMouse(e, true)
-    },
-    onMouseLeave: (e: React.MouseEvent) => {
-      handleMouse(e, false)
-    }
+  const hoverEvents = context.mode !== 'vertical' ? {
+    onMouseEnter: (e: React.MouseEvent) => { handleMouse(e, true)},
+    onMouseLeave: (e: React.MouseEvent) => { handleMouse(e, false)}
   } : {}
-
-
-  const renderChildren = (children: React.ReactNode) => {
+  const renderChildren = () => {
     const subMenuClasses = classNames('viking-submenu', {
       'menu-opened': menuOpen
     })
-    const childComponent = React.Children.map(children, (child, i) => {
-      const childElement = child as React.FunctionComponentElement<MenuItemProps>;
+    const childrenComponent = React.Children.map(children, (child, i) => {
+      const childElement = child as FunctionComponentElement<MenuItemProps>
       if (childElement.type.displayName === 'MenuItem') {
-        return React.cloneElement(childElement, {index: `${index}-${i}`})
+        return React.cloneElement(childElement, {
+          index: `${index}-${i}`
+        })
       } else {
         console.error("Warning: SubMenu has a child which is not a MenuItem component")
       }
     })
-
-    return <ul className={subMenuClasses}>
-      {childComponent}
-    </ul>
+    return (
+      <Transition
+        in={menuOpen}
+        timeout={300}
+        animation="zoom-in-top"
+      >
+        <ul className={subMenuClasses}>
+          {childrenComponent}
+        </ul>
+      </Transition>
+    )
   }
-
-
   return (
-    <li key={index} className={classes} {...hoverEvent}>
-      <div className="submenu-title" {...clickEvent}>
+    <li key={index} className={classes} {...hoverEvents}>
+      <div className="submenu-title" {...clickEvents}>
         {title}
+        <Icon icon="angle-down" className="arrow-icon"/>
       </div>
-      <ul className="submenu-content">
-        {renderChildren(children)}
-      </ul>
+      {renderChildren()}
     </li>
   )
 }
 
 SubMenu.displayName = 'SubMenu'
-export default SubMenu
+export default SubMenu;

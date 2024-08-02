@@ -1,7 +1,16 @@
 import Alert, {AlertProps} from './alert';
 import {describe, expect, vitest} from "vitest";
 import React from "react";
-import {fireEvent, render} from "@testing-library/react";
+import {fireEvent, render, waitFor} from "@testing-library/react";
+
+vitest.mock('../Icon/icon', () => {
+  return {
+    default: (props: any) => {
+      return <span>{props.icon}</span>
+    }
+  }
+})
+
 
 const testProps: AlertProps = {
   title: 'test',
@@ -16,7 +25,7 @@ const typeProps: AlertProps = {
 }
 
 describe('test Alert component', () => {
-  it('should render the correct default alert', () => {
+  it('should render the correct default alert', async () => {
     const wrapper = render(
       <React.Fragment>
         <Alert {...testProps} />
@@ -24,9 +33,11 @@ describe('test Alert component', () => {
     const element = wrapper.getByText('test');
     expect(element).toBeInTheDocument();
     expect(wrapper.container.querySelector('.viking-alert')).toHaveClass('viking-alert-default')
-    fireEvent.click(wrapper.getByText('X'))
+    fireEvent.click(wrapper.getByText('times'));
     expect(testProps.onClose).toHaveBeenCalled();
-    expect(element).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(element).not.toBeInTheDocument();
+    });
   });
 
   it('should render the correct Alert based on different type and description', () => {
@@ -39,7 +50,7 @@ describe('test Alert component', () => {
     expect(wrapper.container.querySelector('.viking-alert')).not.toHaveClass('viking-alert-default')
     expect(wrapper.getByText('hello')).toBeInTheDocument();
     expect(wrapper.getByText('hello')).toHaveClass('viking-alert-desc');
-    expect(wrapper.queryByText('X')).not.toBeInTheDocument();
+    expect(wrapper.queryByText('times')).not.toBeInTheDocument();
   });
 
   it('should change class when type change', () => {

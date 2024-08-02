@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import classNames from "classnames";
+import Icon from "../Icon";
+import Transition from "../Transition/transition.tsx";
 
 export type AlertType = 'success' | 'default' | 'danger' | 'warning'
 
@@ -27,12 +29,14 @@ const Alert: React.FC<AlertProps> = ({title, description, type = 'default', onCl
     setHide(true)
   }
   return (
-    !hide &&
-    <div className={classes}>
-      <span className={titleClass}>{title}</span>
-      {description && <p className="viking-alert-desc">{description}</p>}
-      {closable && <span className="viking-alert-close" onClick={handleClose}>X</span>}
-    </div>
+
+    <Transition in={!hide} timeout={300} animation="zoom-in-top">
+      <div className={classes}>
+        <span className={titleClass}>{title}</span>
+        {description && <p className="viking-alert-desc">{description}</p>}
+        {closable && <span className="viking-alert-close" onClick={handleClose}><Icon icon={"times"}></Icon></span>}
+      </div>
+    </Transition>
   )
 }
 
