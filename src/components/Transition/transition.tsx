@@ -21,6 +21,7 @@ const Transition: React.FC<TransitionProps> = (props) => {
     ...restProps
   } = props
 
+
   return (
     <CSSTransition
       classNames={classNames ? classNames : animation}
