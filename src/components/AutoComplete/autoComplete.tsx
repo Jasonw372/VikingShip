@@ -1,4 +1,4 @@
-import React, {FC, useState, ChangeEvent, KeyboardEvent, ReactElement, useEffect, useRef} from 'react'
+import {FC, useState, ChangeEvent, KeyboardEvent, ReactElement, useEffect, useRef} from 'react'
 import classNames from 'classnames'
 import Input, {InputProps} from '../Input/input'
 import Icon from '../Icon/icon'
@@ -10,7 +10,7 @@ interface DataSourceObject {
   value: string;
 }
 
-export type DataSourceType<T = {}> = T & DataSourceObject
+export type DataSourceType<T = object> = T & DataSourceObject
 
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect' | 'onChange'> {
   /**
@@ -26,15 +26,7 @@ export interface AutoCompleteProps extends Omit<InputProps, 'onSelect' | 'onChan
   renderOption?: (item: DataSourceType) => ReactElement;
 }
 
-/**
- * 输入框自动完成功能。当输入值需要自动完成时使用，支持同步和异步两种方式
- * 支持 Input 组件的所有属性 支持键盘事件选择
- * ### 引用方法
- *
- * ~~~js
- * import { AutoComplete } from 'vikingship'
- * ~~~
- */
+
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const {
     fetchSuggestions,
@@ -46,7 +38,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   } = props
 
   const [inputValue, setInputValue] = useState(value as string)
-  const [suggestions, setSugestions] = useState<DataSourceType[]>([])
+  const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   const [loading, setLoading] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
   const [highlightIndex, setHighlightIndex] = useState(-1)
@@ -54,23 +46,23 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const componentRef = useRef<HTMLDivElement>(null)
   const debouncedValue = useDebounce(inputValue, 300)
   useClickOutside(componentRef, () => {
-    setSugestions([])
+    setSuggestions([])
   })
   useEffect(() => {
     if (debouncedValue && triggerSearch.current) {
-      setSugestions([])
+      setSuggestions([])
       const results = fetchSuggestions(debouncedValue)
       if (results instanceof Promise) {
         setLoading(true)
         results.then(data => {
           setLoading(false)
-          setSugestions(data)
+          setSuggestions(data)
           if (data.length > 0) {
             setShowDropdown(true)
           }
         })
       } else {
-        setSugestions(results)
+        setSuggestions(results)
         setShowDropdown(true)
         if (results.length > 0) {
           setShowDropdown(true)
@@ -135,7 +127,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         animation="zoom-in-top"
         timeout={300}
         onExited={() => {
-          setSugestions([])
+          setSuggestions([])
         }}
       >
         <ul className="viking-suggestion-list">
