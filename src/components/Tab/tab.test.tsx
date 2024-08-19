@@ -12,7 +12,7 @@ const testProps: TabsProps = {
 }
 
 let wrapper: RenderResult
-describe('test Tabs Component', () => {
+describe('test Tab Component', () => {
   beforeEach(() => {
     wrapper = render(
       <Tabs {...testProps}>

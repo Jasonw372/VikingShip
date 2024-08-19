@@ -79,5 +79,5 @@ export const SubMenu: FC<SubMenuProps> = ({ index, title, children, className}) 
   )
 }
 
-SubMenu.displayName = 'SubMenu'
+SubMenu.displayName = 'Menu.SubMenu'
 export default SubMenu;

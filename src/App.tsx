@@ -4,6 +4,7 @@ library.add(fas)
 
 const App = () => {
 
+  return <></>
 }
 
 export default App

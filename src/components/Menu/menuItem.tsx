@@ -31,6 +31,6 @@ const MenuItem: React.FC<MenuItemProps> = ({index, disabled = false, className, 
   )
 }
 
-MenuItem.displayName = 'MenuItem'
+MenuItem.displayName = 'Menu.Item'
 
 export default MenuItem

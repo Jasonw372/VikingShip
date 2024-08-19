@@ -1,29 +1,42 @@
-import {Meta, type StoryObj} from "@storybook/react";
-import Tab from "./index.tsx";
+import {Meta, StoryObj} from '@storybook/react';
+import Tabs from './index.tsx';
 
 const meta = {
-  title: "Tabs组件",
-  component: Tab,
-  subcomponents: {
-    Item: Tab.Item,
-  },
+  argTypes: {},
+  component: Tabs,
   parameters: {
-    // layout: "centered",
+    docs: {
+      source: {}
+    }
+  },
+  subcomponents: {
+    // @ts-ignore
+    "Tabs.Item": Tabs.Item
   },
   tags: ["autodocs"],
-  argTypes: {},
-} satisfies Meta<typeof Tab>;
+  title: "Tabs组件",
+} satisfies Meta<typeof Tabs>;
 
 type Story = StoryObj<typeof meta>;
+const tabItemsData = [
+  {label: '选项卡一', content: 'this is content one'},
+  {label: '选项卡二', content: 'this is content two'},
+  {label: '用户管理', content: 'this is content three'},
+];
+
+// 动态生成 Tabs.Item 的函数
+function generateTabItems(itemsData: { label: string, content: string }[]) {
+  return itemsData.map((item, index) => (
+    <Tabs.Item key={index} label={item.label}>
+      {item.content}
+    </Tabs.Item>
+  ));
+}
 
 export const Default: Story = {
   args: {
-    defaultIndex: 0,
-    children: [
-      <Tab.Item label="选项卡一">this is content one</Tab.Item>,
-      <Tab.Item label="选项卡二">this is content two</Tab.Item>,
-      <Tab.Item label="用户管理">this is content three</Tab.Item>,
-    ],
+    defaultIndex: 2,
+    children: generateTabItems(tabItemsData),
   },
 };
 
@@ -32,9 +45,9 @@ export const Card: Story = {
     defaultIndex: 0,
     type: 'card',
     children: [
-      <Tab.Item label="选项卡一">this is content one</Tab.Item>,
-      <Tab.Item label="选项卡二">this is content two</Tab.Item>,
-      <Tab.Item label="用户管理">this is content three</Tab.Item>,
+      <Tabs.Item label="选项卡一">this is content one</Tabs.Item>,
+      <Tabs.Item label="选项卡二">this is content two</Tabs.Item>,
+      <Tabs.Item label="用户管理">this is content three</Tabs.Item>,
     ],
   },
 };
@@ -43,9 +56,9 @@ export const Disabled: Story = {
   args: {
     defaultIndex: 1,
     children: [
-      <Tab.Item label="选项卡一" disabled={true}>this is content one</Tab.Item>,
-      <Tab.Item label="选项卡二">this is content two</Tab.Item>,
-      <Tab.Item label="用户管理">this is content three</Tab.Item>,
+      <Tabs.Item label="选项卡一" disabled={true}>this is content one</Tabs.Item>,
+      <Tabs.Item label="选项卡二">this is content two</Tabs.Item>,
+      <Tabs.Item label="用户管理">this is content three</Tabs.Item>,
     ],
   },
 }

@@ -12,4 +12,6 @@ const TabItem: FC<TabItemProps> = ({children}) => {
   </div>
 };
 
+TabItem.displayName = 'Tabs.Item'
+
 export default TabItem;

@@ -5,7 +5,10 @@ import {MenuProps} from './menu';
 export default {
   title: 'Menu组件',
   component: Menu,
-  subcomponents: {SubMenu: Menu.SubMenu, Item: Menu.Item},
+  subcomponents: {
+    "Menu.SubMenu": Menu.SubMenu,
+    "Menu.Item": Menu.Item,
+  },
   tags: ['autodocs'],
   argTypes: {
     defaultIndex: {
@@ -33,35 +36,34 @@ export default {
       },
     },
   },
-
-
 } as Meta<typeof Menu>;
 
-const Template = (args: MenuProps) => (
-  <Menu {...args}>
-    <Menu.Item>
-      cool link
-    </Menu.Item>
-    <Menu.Item>
-      cool link 2
-    </Menu.Item>
-    <Menu.Item disabled>
-      disabled
-    </Menu.Item>
-    <Menu.SubMenu title="下拉选项">
-      <Menu.Item>
-        下拉选项一
-      </Menu.Item>
-      <Menu.Item>
-        下拉选项二
-      </Menu.Item>
-    </Menu.SubMenu>
-  </Menu>
-);
 
 // Default Menu
 export const DefaultMenu: StoryObj<MenuProps> = {
-  render: (args) => <Template {...args} />,
+  render: (args) => {
+    return (
+      <Menu {...args}>
+        <Menu.Item>
+          cool link
+        </Menu.Item>
+        <Menu.Item>
+          cool link 2
+        </Menu.Item>
+        <Menu.Item disabled>
+          disabled
+        </Menu.Item>
+        <Menu.SubMenu title="下拉选项">
+          <Menu.Item>
+            下拉选项一
+          </Menu.Item>
+          <Menu.Item>
+            下拉选项二
+          </Menu.Item>
+        </Menu.SubMenu>
+      </Menu>
+    )
+  },
   args: {
     defaultIndex: '0',
   },
@@ -70,7 +72,28 @@ export const DefaultMenu: StoryObj<MenuProps> = {
 
 // Vertical Menu
 export const ClickMenu: StoryObj<MenuProps> = {
-  render: (args) => <Template {...args} />,
+  render: (args) => {
+    return (<Menu {...args}>
+        <Menu.Item>
+          cool link
+        </Menu.Item>
+        <Menu.Item>
+          cool link 2
+        </Menu.Item>
+        <Menu.Item disabled>
+          disabled
+        </Menu.Item>
+        <Menu.SubMenu title="下拉选项">
+          <Menu.Item>
+            下拉选项一
+          </Menu.Item>
+          <Menu.Item>
+            下拉选项二
+          </Menu.Item>
+        </Menu.SubMenu>
+      </Menu>
+    )
+  },
   args: {
     defaultIndex: '0',
     mode: 'vertical',
@@ -80,7 +103,28 @@ export const ClickMenu: StoryObj<MenuProps> = {
 
 // Opened Vertical Menu
 export const OpenedMenu: StoryObj<MenuProps> = {
-  render: (args) => <Template {...args} />,
+  render: (args) => {
+    return (<Menu {...args}>
+        <Menu.Item>
+          cool link
+        </Menu.Item>
+        <Menu.Item>
+          cool link 2
+        </Menu.Item>
+        <Menu.Item disabled>
+          disabled
+        </Menu.Item>
+        <Menu.SubMenu title="下拉选项">
+          <Menu.Item>
+            下拉选项一
+          </Menu.Item>
+          <Menu.Item>
+            下拉选项二
+          </Menu.Item>
+        </Menu.SubMenu>
+      </Menu>
+    )
+  },
   args: {
     defaultIndex: '0',
     mode: 'vertical',
