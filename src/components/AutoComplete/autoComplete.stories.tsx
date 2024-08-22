@@ -22,7 +22,6 @@ interface LakerPlayerProps {
 
 export const Default: Story = {
   args: {
-
     fetchSuggestions: (query) => {
       const lakersWithNumber = [
         {value: 'bradley', number: 11},

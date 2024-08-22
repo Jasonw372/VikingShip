@@ -8,6 +8,7 @@ const meta = {
   parameters: {
     // layout: "centered",
   },
+  tags: ['autodocs'],
   argTypes: {},
 } satisfies Meta<typeof Alert>;
 

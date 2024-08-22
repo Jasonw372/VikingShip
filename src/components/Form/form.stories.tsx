@@ -1,20 +1,17 @@
 import {Meta, StoryObj} from "@storybook/react";
-import Form from "./form.tsx";
-import {FormItem as Item} from "./formItem.tsx";
+import Form from "./index.tsx";
+import {FormProps} from "./form.tsx";
 import Input from "../Input";
 import Button from "../Button";
+import {CustomRule} from "./useStore.ts";
 
-const meta = {
+export default {
   title: "Form组件",
   component: Form,
   subcomponents: {
-    Item: Item
-  },
-  parameters: {
-    layout: "centered",
+    "Form.Item": Form.Item
   },
   tags: ["autodocs"],
-  argTypes: {},
   decorators: [
     (Story) => (
       <div style={{width: '550px'}}>
@@ -22,33 +19,138 @@ const meta = {
       </div>
     ),
   ]
-} satisfies Meta<typeof Form>;
+} as Meta<typeof Form>;
 
-type Story = StoryObj<typeof meta>;
+const confirmRules: CustomRule[] = [{
+  required: true,
+  message: '请再次输入密码'
+}, ({getFieldValue}) => ({
+  asyncValidator: (_, value) => {
 
-export const Default: Story = {
+    return new Promise((resolve, reject) => {
+      if (value !== getFieldValue('password')) {
+        reject('两次密码输入不一致')
+      }
+      setTimeout(() => {
+        resolve()
+      }, 3000)
+    })
+
+  }
+})]
+
+export const DefaultMenu: StoryObj<FormProps> = {
   args: {
-    name: "",
+    initialValues: {
+      username: 'viking',
+      password: "123456",
+      agreement: true
+    }
   },
-  render: (args) => (
-    <Form {...args}>
-      <Item label="用户名">
-        <Input></Input>
-      </Item>
+  render: (args) => {
+    return (
+      <Form {...args} >
+        <Form.Item label='用户名' name="username" rules={[
+          {
+            required: true,
+            message: '请输入用户名'
+          }, {
+            type: 'email',
+            message: '请输入正确的邮箱格式'
+          }]}>
+          <Input/>
+        </Form.Item>
+        <Form.Item label='密码' name="password" rules={[{
+          required: true,
+          message: '请输入密码'
+        }, {
+          min: 6,
+          message: '密码长度不能小于6位'
+        }, {
+          max: 12,
+          message: '密码长度不能大于12位'
+        }]}>
+          <Input type="password"/>
+        </Form.Item>
+        <Form.Item label='重复密码' name="repassword" rules={confirmRules}>
+          <Input type="password"/>
+        </Form.Item>
+        <div className='agreement-section' style={{'display': 'flex', 'justifyContent': 'center'}}>
+          <Form.Item name="agreement" valuePropName="checked" getValueFromEvent={e => e.target.checked}>
+            <input type="checkbox"/>
+          </Form.Item>
+          <span className="agree-text">&nbsp;注册即代表你同意<a href='#'>用户协议</a></span>
+        </div>
+        <div className='viking-form-submit-area'>
+          <Button type="submit" btnType='primary' style={{
+            width: '40%'
+          }}>登陆</Button>
+        </div>
+      </Form>
+    )
+  },
+  name: '默认Menu',  // Setting the story name
+};
 
-      <Item label="密码">
-        <Input type="password"></Input>
-      </Item>
+export const RenderMenu: StoryObj<FormProps> = {
+  args: {
+    initialValues: {
+      username: 'viking',
+      password: "123456",
+      agreement: true
+    }
+  },
+  render: (args) => {
+    return (
+      <Form {...args} >
+        {
+          ({isValidate, isSubmitting}) => {
+            return (
+              <><Form.Item label='用户名' name="username" rules={[
+                {
+                  required: true,
+                  message: '请输入用户名'
+                }, {
+                  type: 'email',
+                  message: '请输入正确的邮箱格式'
+                }
+              ]}>
+                <Input/>
+              </Form.Item><Form.Item label='密码' name="password" rules={[{
+                required: true,
+                message: '请输入密码'
+              }, {
+                min: 6,
+                message: '密码长度不能小于6位'
+              }, {
+                max: 12,
+                message: '密码长度不能大于12位'
+              }]}>
+                <Input type="password"/>
+              </Form.Item><Form.Item label='重复密码' name="repassword" rules={confirmRules}>
+                <Input type="password"/>
+              </Form.Item>
+                <div className='agreement-section' style={{'display': 'flex', 'justifyContent': 'center'}}>
+                  <Form.Item name="agreement" valuePropName="checked" getValueFromEvent={e => e.target.checked}>
+                    <input type="checkbox"/>
+                  </Form.Item>
+                  <span className="agree-text">&nbsp;注册即代表你同意<a href='#'>用户协议</a></span>
+                </div>
+                <div className='viking-form-submit-area'>
+                  <Button type="submit" btnType='primary' style={{
+                    width: '40%'
+                  }}>登陆 {isSubmitting ? "验证中" : "验证完毕"}</Button>
 
-      <Item>
-        <Input placeholder="no label"></Input>
-      </Item>
+                  {isValidate ? "通过了" : "没通过"}
+                </div>
 
-      <div className="viking-form-submit-area">
-        <Button btnType="primary" type="submit">登录</Button>
-      </div>
-    </Form>
-  ),
-}
 
-export default meta
+              </>
+            )
+          }
+        }
+      </Form>
+    )
+  },
+  name: '函数Menu',  // Setting the story name
+};

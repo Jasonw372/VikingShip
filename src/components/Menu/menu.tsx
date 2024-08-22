@@ -1,8 +1,8 @@
-import React, {createContext, useState} from "react";
+import React, { createContext, useState } from "react";
 import classNames from "classnames";
-import {MenuItemProps} from "./menuItem.tsx";
+import { MenuItemProps } from "./menuItem.tsx";
 
-type Mode = 'horizontal' | 'vertical'
+type Mode = "horizontal" | "vertical";
 
 export interface MenuProps {
   defaultIndex?: string;
@@ -21,51 +21,53 @@ export interface IMenuContext {
   defaultOpenSubMenus?: string[];
 }
 
-export const MenuContext = createContext<IMenuContext>({index: '0'});
+export const MenuContext = createContext<IMenuContext>({ index: "0" });
 
 const renderChildren = (children: React.ReactNode) => {
   return React.Children.map(children, (child, index) => {
-      const childElement = child as React.FunctionComponentElement<MenuItemProps>;
-      const {displayName} = childElement.type;
-      if (displayName === 'Menu.Item' || displayName === 'Menu.SubMenu') {
-        return React.cloneElement(childElement, {index: index.toString()})
-      } else {
-        console.error("Warning: Menu has a child which is not a MenuItem component")
-      }
+    const childElement = child as React.FunctionComponentElement<MenuItemProps>;
+    const { displayName } = childElement.type;
+    // console.log("displayName", displayName);
+    if (displayName === "Menu.Item" || displayName === "Menu.SubMenu") {
+      // console.log("childElement", childElement);
+      return React.cloneElement(childElement, { index: index.toString() });
+    } else {
+      console.error(
+        "Warning: Menu has a child which is not a MenuItem component",
+      );
     }
-  )
-}
-const Menu: React.FC<MenuProps> = (
-  {
-    defaultIndex = '0',
-    className,
-    mode = 'horizontal',
-    style,
-    onSelect,
-    children,
-    defaultOpenSubMenus = []
-  }) => {
-  const classes = classNames('viking-menu', className, {
-    'menu-vertical': mode === 'vertical',
-    'menu-horizontal': mode !== 'vertical'
+  });
+};
+const Menu: React.FC<MenuProps> = ({
+  defaultIndex = "0",
+  className,
+  mode = "horizontal",
+  style,
+  onSelect,
+  children,
+  defaultOpenSubMenus = [],
+}) => {
+  const classes = classNames("viking-menu", className, {
+    "menu-vertical": mode === "vertical",
+    "menu-horizontal": mode !== "vertical",
   });
 
-  const [currentActive, setActive] = useState(defaultIndex)
+  const [currentActive, setActive] = useState(defaultIndex);
   const passedContext: IMenuContext = {
-    index: currentActive ? currentActive : '0',
+    index: currentActive ? currentActive : "0",
     onSelect: (index: string) => {
       setActive(index);
       onSelect && onSelect(index);
     },
     mode,
-    defaultOpenSubMenus
-  }
+    defaultOpenSubMenus,
+  };
   return (
     <ul className={classes} style={style} data-testid={"test-menu"}>
       <MenuContext.Provider value={passedContext}>
         {renderChildren(children)}
       </MenuContext.Provider>
     </ul>
-  )
-}
-export default Menu
+  );
+};
+export default Menu;
