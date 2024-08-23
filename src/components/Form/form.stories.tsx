@@ -46,6 +46,7 @@ export const DefaultForm: StoryObj<FormProps> = {
     initialValues: {
       username: "viking",
       password: "123456",
+      repassword: "",
       agreement: true,
     },
   },
