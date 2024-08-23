@@ -1,6 +1,5 @@
-import React from "react";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
-
+import React from "react";
 import { FormProps } from "./form";
 import Form from "./index";
 import Input from "../Input";
@@ -11,7 +10,7 @@ const testProps: FormProps = {
   initialValues: {
     username: "viking",
     password: "12345",
-    repassword: "23456",
+    rePassword: "23456",
     remember: false,
   },
   onFinish: vitest.fn(),
@@ -48,8 +47,8 @@ describe("testing Form component", () => {
           <Input type="password" />
         </Form.Item>
         <Form.Item
-          label="RePassword"
-          name="repassword"
+          label="rePassword"
+          name="rePassword"
           rules={[
             {
               type: "string",
@@ -87,7 +86,7 @@ describe("testing Form component", () => {
     // should contains two labels
     expect(getByText("Username")).toBeInTheDocument();
     expect(getByText("Password")).toBeInTheDocument();
-    expect(getByText("RePassword")).toBeInTheDocument();
+    expect(getByText("rePassword")).toBeInTheDocument();
     // should fill in three inputs
     expect(nameInput).toBeInTheDocument();
     expect(pwdInput).toBeInTheDocument();
@@ -95,7 +94,7 @@ describe("testing Form component", () => {
     // should render the submit button
     expect(submitButton).toBeInTheDocument();
   });
-  it("submit form with invliad values should show the error message", () => {
+  it("submit form with invaild values should show the error message", () => {
     const { getByText } = screen;
     fireEvent.change(nameInput, { target: { value: "" } });
     fireEvent.change(pwdInput, { target: { value: "" } });

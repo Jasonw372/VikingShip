@@ -5,6 +5,7 @@ import {fireEvent, render, waitFor} from "@testing-library/react";
 
 vitest.mock('../Icon/icon', () => {
   return {
+    // @ts-ignore
     default: ({icon}) => {
       return <span>{icon as string}</span>
     }

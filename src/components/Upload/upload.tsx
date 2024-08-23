@@ -25,7 +25,7 @@ export interface UploadProps {
   data?: object;
   withCredentials?: boolean;
   accept?: string;
-  multiple: boolean;
+  multiple?: boolean;
   children: React.ReactNode;
   drag?: boolean;
   beforeUpload?: (file: File) => boolean | Promise<File>;
@@ -51,7 +51,8 @@ export const Upload: FC<UploadProps> = ({
                                           onError,
                                           onChange,
                                           onRemove,
-                                          accept, multiple,
+                                          accept,
+                                          multiple = false,
                                           children,
                                         }) => {
   const [fileList, setFileList] = useState<Array<UploadFile>>(defaultFileList || [])

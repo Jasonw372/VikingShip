@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Form from "./index.tsx";
-import { FormProps } from "./form.tsx";
+import {FormProps, IFormRef} from "./form.tsx";
 import Input from "../Input";
 import Button from "../Button";
 import { CustomRule } from "./useStore.ts";
@@ -46,12 +46,12 @@ export const DefaultForm: StoryObj<FormProps> = {
     initialValues: {
       username: "viking",
       password: "123456",
-      repassword: "",
+      rePassword: "",
       agreement: true,
     },
   },
   render: (args) => {
-    const ref = useRef<HTMLFormElement>(null);
+    const ref = useRef<IFormRef>(null);
 
     return (
       <Form {...args} ref={ref}>
@@ -91,7 +91,7 @@ export const DefaultForm: StoryObj<FormProps> = {
         >
           <Input type="password" />
         </Form.Item>
-        <Form.Item label="重复密码" name="repassword" rules={confirmRules}>
+        <Form.Item label="重复密码" name="rePassword" rules={confirmRules}>
           <Input type="password" />
         </Form.Item>
         <div
@@ -187,7 +187,7 @@ export const RenderForm: StoryObj<FormProps> = {
               </Form.Item>
               <Form.Item
                 label="重复密码"
-                name="repassword"
+                name="rePassword"
                 rules={confirmRules}
               >
                 <Input type="password" />
