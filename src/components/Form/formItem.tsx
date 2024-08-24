@@ -1,7 +1,7 @@
 import React, {FC, useContext, useEffect} from "react";
 import classNames from "classnames";
-import {FormContext} from "./form.tsx";
-import {CustomRule} from "./useStore.ts";
+import {FormContext} from "./form";
+import {CustomRule} from "./useStore";
 
 
 export interface FormItemProps {
@@ -47,7 +47,7 @@ export const FormItem: FC<FormItemProps> = ({
         errors: []
       },
     });
-  }, []);
+  }, [dispatch, initialValues, name, rules]);
 
   const fieldState = fields[name];
   const value = fieldState && fieldState.value !== undefined

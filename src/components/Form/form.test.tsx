@@ -25,55 +25,57 @@ let nameInput: HTMLInputElement,
 describe("testing Form component", () => {
   beforeEach(() => {
     render(
-      <Form {...testProps}>
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[
-            { type: "string", required: true, message: "name error" },
-            { type: "string", min: 3, message: "less than 3" },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            { type: "string", required: true, message: "password error" },
-            { type: "string", min: 4, message: "less then 4" },
-          ]}
-        >
-          <Input type="password" />
-        </Form.Item>
-        <Form.Item
-          label="rePassword"
-          name="rePassword"
-          rules={[
-            {
-              type: "string",
-              required: true,
-              message: "confirm password error",
-            },
-            { type: "string", min: 4, message: "less then 4" },
-            ({ getFieldValue }) => ({
-              asyncValidator(_, value) {
-                return new Promise((resolve, reject) => {
-                  if (value !== getFieldValue("password")) {
-                    reject("Do not match!");
-                  }
-                  resolve();
-                });
+      <React.Fragment>
+        <Form {...testProps}>
+          <Form.Item
+            label="Username"
+            name="username"
+            rules={[
+              {type: "string", required: true, message: "name error"},
+              {type: "string", min: 3, message: "less than 3"},
+            ]}
+          >
+            <Input/>
+          </Form.Item>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {type: "string", required: true, message: "password error"},
+              {type: "string", min: 4, message: "less then 4"},
+            ]}
+          >
+            <Input type="password"/>
+          </Form.Item>
+          <Form.Item
+            label="rePassword"
+            name="rePassword"
+            rules={[
+              {
+                type: "string",
+                required: true,
+                message: "confirm password error",
               },
-            }),
-          ]}
-        >
-          <Input type="password" />
-        </Form.Item>
-        <Button type="submit" btnType="primary">
-          Log in
-        </Button>
-      </Form>,
+              {type: "string", min: 4, message: "less then 4"},
+              ({getFieldValue}) => ({
+                asyncValidator(_, value) {
+                  return new Promise((resolve, reject) => {
+                    if (value !== getFieldValue("password")) {
+                      reject("Do not match!");
+                    }
+                    resolve();
+                  });
+                },
+              }),
+            ]}
+          >
+            <Input type="password"/>
+          </Form.Item>
+          <Button type="submit" btnType="primary">
+            Log in
+          </Button>
+        </Form>,
+      </React.Fragment>
     );
     const { getByDisplayValue, getByText } = screen;
     nameInput = getByDisplayValue("viking");

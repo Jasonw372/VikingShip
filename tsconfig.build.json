@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "outDir": "./build",
+    // Output directory
+    "module": "ESNext",
+    // Module system
+    "target": "ES5",
+    // Target environment
+    "declaration": true,
+    // Generate declaration files
+    "jsx": "react",
+    // JSX support (React)
+    "moduleResolution": "node",
+    // Module resolution strategy
+    "allowSyntheticDefaultImports": true
+    // Allow default imports from modules with no default export
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ]
+}

@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { Upload, UploadProps } from "./upload.tsx";
+import { Upload, UploadProps } from "./upload";
 import { beforeEach, describe, expect, Mocked, vitest } from "vitest";
 import {
   fireEvent,

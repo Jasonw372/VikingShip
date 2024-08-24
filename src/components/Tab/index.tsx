@@ -1,5 +1,5 @@
-import TabItem, {TabItemProps} from './tabItem.tsx'
-import Tabs, {TabsProps} from "./tab.tsx";
+import TabItem, {TabItemProps} from './tabItem'
+import Tabs, {TabsProps} from "./tab";
 import {FC} from "react";
 
 export type TabsWithItem = FC<TabsProps> & {

@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {MenuContext} from "./menu.tsx";
+import {MenuContext} from "./menu";
 import classNames from "classnames";
 
 export interface MenuItemProps {

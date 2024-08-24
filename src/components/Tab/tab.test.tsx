@@ -2,7 +2,7 @@ import { render, fireEvent, RenderResult } from '@testing-library/react'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import React from "react";
-import Tabs, { TabsProps } from './tab.tsx'
+import Tabs, { TabsProps } from './tab'
 import TabItem from './tabItem'
 import {vitest} from "vitest";
 

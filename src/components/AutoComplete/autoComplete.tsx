@@ -1,5 +1,4 @@
 import React, {
-  FC,
   useState,
   ChangeEvent,
   KeyboardEvent,
@@ -37,7 +36,7 @@ export interface AutoCompleteProps
   renderOption?: (item: DataSourceType) => ReactElement;
 }
 
-export const AutoComplete: FC<AutoCompleteProps> = (props) => {
+export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
   const {
     fetchSuggestions,
     onSelect,

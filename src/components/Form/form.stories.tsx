@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Form from "./index.tsx";
-import {FormProps, IFormRef} from "./form.tsx";
+import Form from "./index";
+import {FormProps, IFormRef} from "./form";
 import Input from "../Input";
 import Button from "../Button";
 import { CustomRule } from "./useStore.ts";

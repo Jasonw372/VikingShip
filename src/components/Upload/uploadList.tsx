@@ -1,5 +1,5 @@
-import React, {FC} from "react";
-import {UploadFile} from "./upload.tsx";
+import React from "react";
+import {UploadFile} from "./upload";
 import Icon from "../Icon/";
 import Progress from "../Progress";
 
@@ -8,7 +8,7 @@ interface UploadListProps {
   onRemove: (_file: UploadFile) => void
 }
 
-export const UploadList: FC<UploadListProps> = ({fileList, onRemove}) => {
+export const UploadList: React.FC<UploadListProps> = ({fileList, onRemove}) => {
   return (
     <ul className="viking-upload-list">
       {

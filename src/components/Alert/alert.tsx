@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import classNames from "classnames";
 import Icon from "../Icon";
-import Transition from "../Transition/transition.tsx";
+import Transition from "../Transition/transition";
 
 export type AlertType = 'success' | 'default' | 'danger' | 'warning'
 

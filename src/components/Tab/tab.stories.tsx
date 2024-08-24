@@ -1,5 +1,5 @@
 import {Meta, StoryObj} from '@storybook/react';
-import Tabs from './index.tsx';
+import Tabs from './index';
 
 const meta = {
   argTypes: {},
@@ -10,7 +10,6 @@ const meta = {
     }
   },
   subcomponents: {
-    // @ts-ignore
     "Tabs.Item": Tabs.Item
   },
   tags: ["autodocs"],

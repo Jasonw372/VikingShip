@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, useRef, useState} from "react";
 import axios from "axios";
 import {v4 as uuid} from 'uuid';
-import {UploadList} from "./uploadList.tsx";
-import Dragger from "./dragger.tsx";
+import {UploadList} from "./uploadList";
+import Dragger from "./dragger";
 
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
 
@@ -93,8 +93,6 @@ export const Upload: FC<UploadProps> = ({
     formData.append(name || 'file', file)
     if (data) {
       Object.keys(data).forEach(key => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         formData.append(key, data[key])
       })
     }

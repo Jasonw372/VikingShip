@@ -1,3 +1,3 @@
-import {Upload} from "./upload.tsx";
+import {Upload} from "./upload";
 
 export default Upload;

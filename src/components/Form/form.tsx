@@ -4,7 +4,7 @@ import React, {
   ReactNode,
   useImperativeHandle,
 } from "react";
-import useStore, { FormState } from "./useStore.ts";
+import useStore, { FormState } from "./useStore";
 import { ValidateError } from "async-validator";
 
 export type RenderProps = (form: FormState) => ReactNode;

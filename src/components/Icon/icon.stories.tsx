@@ -1,5 +1,5 @@
 import {Meta} from "@storybook/react";
-import Icon from "./icon.tsx";
+import Icon from "./icon";
 import Button from "../Button";
 import "./stories.scss";
 
