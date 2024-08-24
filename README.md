@@ -1,34 +1,52 @@
-# React + TypeScript + Vite
+# Viking-Ship
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 描述
 
-Currently, two official plugins are available:
+这是一套基于React的UI组件库，目的是仿照Ant Design，实现一套自己的UI组件库。目前仍在开发中。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
-  uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast
-  Refresh
+目前已经实现的组件有：
+- Button
+- Icon
+- Input
+- Menu
+- Form
+- Alert
+- AutoComplete
+- Upload
+- Progress
+- Transition
 
-## Expanding the ESLint configuration
+## 安装
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+目前未发布
+```shell
+pnpm install viking-ship 
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked`
-  or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and
-  add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 运行
+
+### 安装依赖
+```shell
+pnpm install
+```
+
+### 运行Storybook
+```shell
+pnpm storybook
+```
+
+### 运行测试
+```shell
+pnpm test
+```
+
+### 预打包
+```shell
+pnpm prepublish
+```
+
+### 发布
+（未实现）
+```shell
+pnpm publish
+```
