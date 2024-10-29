@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main  # 设置为触发发布的分支
+permissions:
+  contents: write
 
 jobs:
   build:
