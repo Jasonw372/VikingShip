@@ -13,4 +13,3 @@ export {default as Upload} from "./components/Upload"
 export {default as Progress} from "./components/Progress"
 export {default as Alert} from "./components/Alert"
 export {default as Tab} from "./components/Tab"
-
